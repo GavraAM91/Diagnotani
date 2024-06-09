@@ -14,7 +14,7 @@ class DataPenyakitGejalaJagung
     {
         //insialisasi database
         $db = new database();
-        $sql_penyakit = "SELECT * FROM tb_penyakit_gejala";
+        $sql_penyakit = "SELECT * FROM tb_penyakit_gejala_jagung";
         $result = $db->getconnection()->query($sql_penyakit);
 
         if ($result->num_rows > 0) {

@@ -45,7 +45,7 @@ var_dump($id_gejala);
 if (!empty($id_gejala)) {
     $placeholders = implode(',', array_fill(0, count($id_gejala), '?'));
     $sql_penyakit = "SELECT pg.id_penyakit, p.nama_penyakit
-    FROM tb_penyakit_gejala pg
+    FROM tb_penyakit_gejala_jagung pg
     JOIN tb_penyakit_jagung p ON pg.id_penyakit = p.id_penyakit
     WHERE pg.id_gejala IN ($placeholders)";
 

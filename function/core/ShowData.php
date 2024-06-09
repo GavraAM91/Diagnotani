@@ -23,7 +23,7 @@ class ShowData
         $db = new Database();
 
         $sql = "SELECT pg.id_penyakit, p.nama_penyakit, pg.id_gejala, g.gejala, g.mb, g.md
-                FROM tb_penyakit_gejala pg
+                FROM tb_penyakit_gejala_jagung pg
                 JOIN tb_penyakit_jagung p ON pg.id_penyakit = p.id_penyakit
                 JOIN tb_gejala_jagung g ON pg.id_gejala = g.id_gejala
                 WHERE pg.id_gejala = ?";
@@ -94,7 +94,7 @@ class ShowData
 
         // Use prepared statement to avoid SQL injection
         $sql = "SELECT pg.id_penyakit, p.nama_penyakit
-                FROM tb_penyakit_gejala pg
+                FROM tb_penyakit_gejala_jagung pg
                 JOIN tb_penyakit_jagung p ON pg.id_penyakit = p.id_penyakit
                 WHERE pg.id_gejala = ?";
 
