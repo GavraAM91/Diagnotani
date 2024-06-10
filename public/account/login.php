@@ -1,7 +1,8 @@
 <?php
 
-require_once '../../function/init.php';
+use Core\Login;
 
+require_once '../../function/init.php';
 
 //check are thoose variable have value
 if (isset($_POST['login'])) {
@@ -11,7 +12,7 @@ if (isset($_POST['login'])) {
     var_dump($username);
     var_dump($passsword);
     //check up into class login
-    $query = new login($username, $passsword);
+    $query = new Login($username, $passsword);
     $query->login();
 }
 
@@ -26,7 +27,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- 👇 css code file 👇 -->
-    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../style/style.css" />
     <title>LOGIN | DiagnoTani</title>
 </head>
 
@@ -70,7 +71,7 @@ if (isset($_POST['login'])) {
             <!--footer-->
             <footer class="footer-login">
                 <p>Don't you have account</p>
-                <a href="#">Create your account</a>
+                <a href="signup.html">Create your account</a>
             </footer>
         </div>
 

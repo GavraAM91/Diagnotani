@@ -58,6 +58,7 @@ if (!empty($id_gejala)) {
     // Variable untuk menyimpan data penyakit
     $penyakit_counts = [];
     while ($row = $result->fetch_assoc()) {
+        $id_penyakit = $row['id_penyakit'];
         $nama_penyakit = $row['nama_penyakit'];
         if (!isset($penyakit_counts[$nama_penyakit])) {
             $penyakit_counts[$nama_penyakit] = 0;
@@ -81,17 +82,23 @@ if (!empty($id_gejala)) {
 $final_cf_percentage = $final_cf * 100;
 echo $final_cf_percentage . '%';
 
+$sql_history = "INSERT INTO `tb_history`(`id_penyakit`, `id_user`, `value`) 
+                VALUES (?,?,?)";
+$sql_history = $db->getConnection()->prepare($sql_history);
+$sql_history->bind_param("ssss", $id_penyakit, $id_user, $final_cf_percentage);
+$sql_history->execute();
+
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
 
 </body>

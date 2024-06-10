@@ -6,7 +6,7 @@ session_start();
 
 require_once '../function/init.php';
 
-use Core\DataGejala;
+use Core\DataGejalaJagung;
 use Core\Question;
 use Core\ShowData;
 
