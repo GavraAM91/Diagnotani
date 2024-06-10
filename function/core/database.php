@@ -24,16 +24,4 @@ class database
         return $this->conn; // Mengembalikan objek koneksi
     }
 
-    public function getLastUserID()
-    {
-        $this->conn = $this->getConnection();
-        $result = $this->conn->query("SELECT id_user FROM tb_account ORDER BY id_user DESC LIMIT 1");
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $lastID = $row['id_user'];
-            return intval(substr($lastID, 3)); // Mengembalikan hanya bagian numerik dari ID
-        } else {
-            return 0; // Jika tidak ada entri, mulai dari 0
-        }
-    }
 }

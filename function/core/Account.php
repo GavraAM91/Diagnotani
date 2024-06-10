@@ -1,13 +1,11 @@
 <?php
 
-// define('ROOT', dirname(dirname(dirname(__FILE__))));
-
-// // Menggunakan jalur absolut
-// require_once(ROOT . '/function/database/database.php');
-// require_once(ROOT . '/function/core/idGenerator.php');
-
 namespace Core;
-// require 'database/database.php';
+
+use Core\IDGeneratorAccount;
+use Core\database;
+
+require_once 'IdGenerator.php';
 
 class account
 {
@@ -57,10 +55,18 @@ class signUp extends account
         //connection from database
         $db = new database();
 
+        //connection to generator UUID
+        $ID_generator = new IDGeneratorAccount();
+
+        //get last id from database
+        $lastIDFromDB = $ID_generator->getLastUserID();  
+        $generator = new IDGeneratorAccount($lastIDFromDB);
+        $newID = $generator->generateID();
+
         //get last user id
-        $lastIDFromDB = $db->getConnection();
-        $generator = new IDGeneratorAccount($lastIDFromDB); // Inisialisasi IDGenerator dengan lastID
-        $newID = $generator->generateID(); // Generate ID baru
+        // $lastIDFromDB = $db->getConnection();
+        // $generator = new IDGeneratorAccount($lastIDFromDB); 
+        // $newID = $generator->generateID();
 
         //check username sudah ada atau belum
         $query = $db->getConnection()->query("SELECT username FROM tb_account WHERE username = '$this->username'");
@@ -102,6 +108,7 @@ class signUp extends account
             echo "<script>
                 alert('signup succes!');
             </script>";
+            header("Location: ../account/login.php");
         } else {
             echo "<script>
                 alert('signup failed :(');
