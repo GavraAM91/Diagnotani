@@ -13,12 +13,11 @@ use Core\ShowData;
 // Inisialisasi objek DataGejala
 $datagejala = new DataGejalaJagung();
 
-//mendapatkan seluruh total pertanyaan / gejala dari database
+// Mendapatkan seluruh total pertanyaan / gejala dari database
 $totalGejala = $datagejala->countGejala();
 
-
 // Periksa apakah pertanyaan saat ini sudah ada dalam sesi
-if (!isset($_SESSION['current_question'])) {
+if (!isset($_SESSION['gejala'])) {
     $datagejala->dataGejala();
     $gejala = $datagejala->getGejala();
 
@@ -58,7 +57,6 @@ if (isset($_POST['submit'])) {
         'combined_cf' => $combined_cf,
     ];
 
-
     // Pindah ke pertanyaan berikutnya
     $current_question_index++;
     if ($current_question_index < count($gejala)) {
@@ -68,14 +66,11 @@ if (isset($_POST['submit'])) {
         // Jika tidak ada pertanyaan berikutnya, hapus sesi pertanyaan saat ini
         unset($_SESSION['current_question']);
         unset($_SESSION['current_question_index']);
-    }
 
-    // Redirect to result page if all questions have been answered
-    if (!isset($_SESSION['current_question'])) {
+        // Redirect to result page if all questions have been answered
         header('Location: result.php');
         exit;
     }
-    
 }
 ?>
 
@@ -97,7 +92,7 @@ if (isset($_POST['submit'])) {
             if (isset($current_question)) :
             ?>
                 <header class="header-question-page">
-                    <h3>1 / <?= $totalGejala?></h3>
+                    <h3><?= ($current_question_index + 1) ?> / <?= $totalGejala?></h3>
                     <p> Apakah <?= $current_question['gejala'];?></p>
                 </header>
 
@@ -152,4 +147,3 @@ if (isset($_POST['submit'])) {
 </body>
 
 </html>
-
