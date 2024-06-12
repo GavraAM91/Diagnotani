@@ -11,11 +11,11 @@ use Core\Database;
 use Core\Account;
 use Core\Question;
 use Core\ShowData;
-use Core\DataGejala;
+use Core\DataGejalaJagung;
 
 // Contoh penggunaan kelas
-$datagejala = new DataGejala();
-$datagejala->dataGejala();
-$gejala = $datagejala->getGejala();
+// $datagejala = new DataGejala();
+// $datagejala->dataGejala();
+// $gejala = $datagejala->getGejala();
 
 // var_dump($gejala); // Menampilkan seluruh data untuk debugging

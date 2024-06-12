@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-class DataGejala {
+class DataGejalaJagung {
     private $gejala = [];
 
     public function __construct($gejala = []) {
@@ -25,4 +25,19 @@ class DataGejala {
     public function getGejala() {
         return $this->gejala;
     }
+
+    public function countGejala() {
+        $db = new database();
+
+        $sql_count_gejala = "SELECT COUNT(*) AS total FROM tb_gejala_jagung";
+        $result =  $db->getConnection()->query($sql_count_gejala);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['total']; 
+        } else {
+            return 0; 
+        }
+    }
+
 }

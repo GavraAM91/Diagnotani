@@ -11,7 +11,11 @@ use Core\Question;
 use Core\ShowData;
 
 // Inisialisasi objek DataGejala
-$datagejala = new DataGejala();
+$datagejala = new DataGejalaJagung();
+
+//mendapatkan seluruh total pertanyaan / gejala dari database
+$totalGejala = $datagejala->countGejala();
+
 
 // Periksa apakah pertanyaan saat ini sudah ada dalam sesi
 if (!isset($_SESSION['current_question'])) {
@@ -47,12 +51,12 @@ if (isset($_POST['submit'])) {
     $sql_data = new ShowData($id_gejala_user, $value_gejala_user);
     $combined_cf = $sql_data->question_process();
 
-        // Simpan id_gejala dan nilai_gejala ke dalam array dalam sesi bersama combined_cf
-        $_SESSION['combined_data'][] = [
-            'id_gejala' => $id_gejala_user,
-            'nilai_gejala' => $value_gejala_user,
-            'combined_cf' => $combined_cf,
-        ];
+    // Simpan id_gejala dan nilai_gejala ke dalam array dalam sesi bersama combined_cf
+    $_SESSION['combined_data'][] = [
+        'id_gejala' => $id_gejala_user,
+        'nilai_gejala' => $value_gejala_user,
+        'combined_cf' => $combined_cf,
+    ];
 
 
     // Pindah ke pertanyaan berikutnya
@@ -71,6 +75,7 @@ if (isset($_POST['submit'])) {
         header('Location: result.php');
         exit;
     }
+    
 }
 ?>
 
@@ -78,31 +83,73 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DiagnoTani || Question Page</title>
+    <script src="../js/main.js"></script>
+    <link rel="stylesheet" href="style/style.css" />
 </head>
 
 <body>
-    <?php if (!empty($gejala)) : ?>
-    <?php endif; ?>
+    <div class="container">
+        <main class="main-content">
+            <?php
+            if (isset($current_question)) :
+            ?>
+                <header class="header-question-page">
+                    <h3>1 / <?= $totalGejala?></h3>
+                    <p> Apakah <?= $current_question['gejala'];?></p>
+                </header>
 
-    <?php if (isset($current_question)) : ?>
-        <form action="" method="post">
-            <p>Apakah <?= $current_question['gejala'] ?>?</p>
-            <input type="hidden" name="id_gejala" value="<?= $current_question['id_gejala'] ?>">
-            <input type="radio" name="nilai_gejala" value="1.0"> Sangat Yakin
-            <input type="radio" name="nilai_gejala" value="0.8"> Yakin
-            <input type="radio" name="nilai_gejala" value="0.6"> Cukup Yakin
-            <input type="radio" name="nilai_gejala" value="0.4"> Sedikit Yakin
-            <input type="radio" name="nilai_gejala" value="0.2"> Tidak Tahu
-            <input type="radio" name="nilai_gejala" value="0.0"> Tidak
-            <br>
-            <button type="submit" name="submit">Selanjutnya</button>
-        </form>
-    <?php else : ?>
-        <p>Tidak ada data gejala.</p>
-    <?php endif; ?>
+                <form class="opsi" method="post" action="">
+                    <div class="pilihan-1">
+                        <input type="hidden" name="id_gejala" value="<?= $current_question['id_gejala'] ?>">
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="1.0" />
+                            <span class="checkmark"></span>
+                            <span>Sangat Yakin</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="0.8" />
+                            <span class="checkmark"></span>
+                            <span>Yakin</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="0.6" />
+                            <span class="checkmark"></span>
+                            <span>Sedikit yakin</span>
+                        </label>
+                    </div>
+                    <!-- batas pilihan 1 dan pilihan 2 -->
+                    <div class="pilihan-2">
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="0.6" />
+                            <span class="checkmark"></span>
+                            <span>Cukup yakin</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="0.2" />
+                            <span class="checkmark"></span>
+                            <span>Tidak Tahu</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="nilai_gejala" id="pilihan" value="0.0" />
+                            <span class="checkmark"></span>
+                            <span>Tidak</span>
+                        </label>
+                    </div>
+
+                    <!-- button -->
+                    <button class="next-button" type="submit" name="submit">
+                        selanjutnya
+                    </button>
+                </form>
+            <?php else : ?>
+                <p>Tidak ada data gejala.</p>
+            <?php endif; ?>
+        </main>
+    </div>
 </body>
 
 </html>
+
