@@ -43,6 +43,17 @@ CREATE TABLE `tb_account` (
 INSERT INTO `tb_account` (`id_user`, `username`, `email`, `job_desk`, `password`, `role`) VALUES
 ('USR001', 'gavra', 'gavra@gmail.com', 'backend', 'halohalobandung', 'user');
 
+--
+-- Table structure for table `tb_history`
+--
+
+CREATE TABLE `tb_history` (
+  `id_history` int(11) NOT NULL,
+  `id_penyakit` varchar(50) NOT NULL,
+  `id_gejala` varchar(50) NOT NULL,
+  `value` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -81,18 +92,45 @@ INSERT INTO `tb_gejala_jagung` (`id_gejala`, `gejala`, `mb`, `md`) VALUES
 ('G018', 'Batang berwarna merah jambu', 0.7, 0.3),
 ('G019', 'Batang berwarna merah kecoklatan', 0.5, 0.2);
 
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_history`
+-- Table structure for table `tb_gejala_tomat`
 --
 
-CREATE TABLE `tb_history` (
-  `id_history` int(11) NOT NULL,
-  `id_penyakit` varchar(50) NOT NULL,
-  `id_gejala` varchar(50) NOT NULL,
-  `value` float NOT NULL
+CREATE TABLE `tb_gejala_tomats` (
+ `id_gejala` varchar(50) NOT NULL,
+  `gejala` varchar(255) NOT NULL,
+  `mb` float NOT NULL,
+  `md` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_gejala_tomat`
+--
+
+INSERT INTO `tb_gejala_tomat` (`id_gejala`, `gejala`, `mb`, `md`) VALUES
+('G001', 'Terdapat bercak kecil berbentuk oval pada daun', 0.6, 0.2),
+('G002', 'Terdapat bercak memanjang berbentuk ellips pada daun', 0.8, 0.1),
+('G003', 'Daun berwarna hijau keabu-abuan', 0.9, 0.1),
+('G004', 'Daun berwarna coklat', 0.8, 0.2),
+('G005', 'Terdapat bercak berwarna kemerahan pada palepah daun', 0.9, 0.1),
+('G006', 'Terdapat bercak berwarna keabu-abuan pada palepah daun', 0.8, 0.4),
+('G007', 'Terdapat sklerotium berwarna putih atau coklat', 0.8, 0.1),
+('G008', 'Ada warna khorofil memanjang sejajar tulang daun', 0.7, 0.2),
+('G009', 'Terdapat bercak berwarna putih', 0.9, 0.2),
+('G010', 'Pertumbuhan jagung terhambat', 1, 0.1),
+('G011', 'Daun menggulung', 0.7, 0.3),
+('G012', 'Kelobot saling menempel erat pada tongkol', 0.8, 0.1),
+('G013', 'Buah berwarna biru hitam di permukaan kelobot maupun tongkol', 0.9, 0.1),
+('G014', 'Pangkal batang berwarna hijau atau coklat', 0.6, 0.2),
+('G015', 'Bagian dalam batang busuk', 0.8, 0.4),
+('G016', 'Batang mudah rebah', 0.8, 0.3),
+('G017', 'Kulit luar batang tipis', 0.8, 0.2),
+('G018', 'Batang berwarna merah jambu', 0.7, 0.3),
+('G019', 'Batang berwarna merah kecoklatan', 0.5, 0.2);
+
 
 -- --------------------------------------------------------
 
@@ -153,6 +191,31 @@ INSERT INTO `tb_penyakit_jagung` (`id_penyakit`, `nama_penyakit`) VALUES
 ('P004', 'Busuk Tongkol'),
 ('P005', 'Busuk Batang');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_penyakit_jagung`
+--
+
+CREATE TABLE `tb_solusi_jagung` (
+  `id_solusi` int(),
+  `id_penyakit` varchar(50) NOT NULL,
+  `solution` text() NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_solusi_penyakit_jagung`
+--
+
+INSERT INTO `tb_solusi_jagung` (`id_solusi`,`id_penyakit`, `solusi`) VALUES
+('S001','P001', 'Menanam varietas tahan hawar seperti Kalingga, Arjuna, dan Hibrida Cl. Perlu diketahui, varietas jagung manis relatif lebih peka terhadap penyakit hawar daun. Menanam jagung pada awal hingga akhir musim kemarau secara serempak. Menggunakan fungisida sistemik.'),
+('S002','P002', 'Fusarium spp. (Fusarium Stalk Rot), Anthracnose (Colletotrichum graminicola), Erwinia spp. (Bacterial Stalk Rot)'),
+('S003','P003', 'Fungisida Sistemik(Metalaksil,Mefenoksam)'),
+('S004','P004', 'Penyakit busuk tongkol pada jagung biasanya disebabkan oleh infeksi jamur. Patogen yang sering terlibat adalah Fusarium spp., Aspergillus spp., dan Diplodia spp.'),
+('S005','P005', '
+Busuk batang pada jagung dapat disebabkan oleh beberapa patogen jamur, seperti Fusarium spp., Diplodia maydis, Colletotrichum graminicola, dan Macrophomina phaseolina. ');
+
+
 --
 -- Indexes for dumped tables
 --
@@ -191,6 +254,12 @@ ALTER TABLE `tb_penyakit_gejala_jagung`
 ALTER TABLE `tb_penyakit_jagung`
   ADD PRIMARY KEY (`id_penyakit`);
 
+-- Indexes for table `tb_solusi_penyakit_jagung`
+--
+ALTER TABLE `tb_solusi_jagung`
+  ADD PRIMARY KEY (`id_solusi`),
+  ADD KEY `id_penyakit` (`id_penyakit`),
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -202,6 +271,12 @@ ALTER TABLE `tb_history`
   MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tb_history`
+--
+ALTER TABLE `tb_solusi_penyakit_jagung`
+  MODIFY `id_solusi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -211,6 +286,12 @@ ALTER TABLE `tb_history`
 ALTER TABLE `tb_penyakit_gejala_jagung`
   ADD CONSTRAINT `tb_penyakit_gejala_jagung_ibfk_1` FOREIGN KEY (`id_penyakit`) REFERENCES `tb_penyakit_jagung` (`id_penyakit`),
   ADD CONSTRAINT `tb_penyakit_gejala_jagung_ibfk_2` FOREIGN KEY (`id_gejala`) REFERENCES `tb_gejala_jagung` (`id_gejala`);
+
+--
+-- Constraints for table `tb_solusi_penyakit_jagung`
+--
+ALTER TABLE `tb_solusi_jagung`
+  ADD CONSTRAINT `tb_solusi_jagung_ibfk_1` FOREIGN KEY (`id_penyakit`) REFERENCES `tb_penyakit_jagung` (`id_penyakit`),
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

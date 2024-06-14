@@ -6,6 +6,8 @@ require_once __DIR__ . '/Core/ShowData.php';
 require_once __DIR__ . '/Core/DataGejalaJagung.php';
 require_once __DIR__ . '/Core/DataPenyakitGejalaJagung.php';
 require_once __DIR__ . '/Core/DataPenyakitJagung.php';
+require_once __DIR__ . '/Core/SolusiPenyakit.php';
+require_once __DIR__ . '/Core/History.php';
 
 use Core\Database;
 use Core\Account;

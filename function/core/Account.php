@@ -45,9 +45,9 @@ class account
 class signUp extends account
 {
     //construct
-    public function __construct($username, $password, $confirmPassword, $email)
+    public function __construct($username, $password, $email)
     {
-        parent::__construct($username, $password, $confirmPassword, $email);
+        parent::__construct($username, $password, $email);
     }
 
     public function signup()
@@ -91,24 +91,24 @@ class signUp extends account
         // exit;
 
         // Konfirmasi password
-        if ($this->password != $this->confirmPassword) {
-            echo "<script>
-        alert('Password tidak sama!');
-        </script>";
-            return false;
-        }
+        // if ($this->password != $this->confirmPassword) {
+        //     echo "<script>
+        // alert('Password tidak sama!');
+        // </script>";
+        //     return false;
+        // }
 
         // Hash password
         $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
-        $sql = $db->getConnection()->prepare("INSERT INTO `tb_account`(`id_user`,`username`, `email`, `job_desk`, `password`) VALUES (?,?,?,?,?)");
-        $sql->bind_param("sssss", $newID, $this->username, $this->email, $this->job_desk, $password_hash);
+        $sql = $db->getConnection()->prepare("INSERT INTO `tb_account`(`id_user`,`username`, `email`, `password`) VALUES (?,?,?,?)");
+        $sql->bind_param("ssss", $newID, $this->username, $this->email, $password_hash);
 
         if ($sql->execute()) {
             echo "<script>
                 alert('signup succes!');
             </script>";
-            header("Location: ../account/login.php");
+            header("Location: login.php");
         } else {
             echo "<script>
                 alert('signup failed :(');
@@ -166,7 +166,7 @@ class Login extends account
                     </script>";
 
                     $_SESSION['username'] = $this->username;
-                    header('Location: ../admin/index.php');
+                    header('Location: index.php');
                     exit();
                 } else if ($user['role'] == 'user') {
                     echo "<script>

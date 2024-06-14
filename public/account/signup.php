@@ -12,7 +12,7 @@ if (isset($_POST['signup'])) {
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirm_password'];
 
-    $sql_signup = new signUp($username, $password, $confirmpassword, $email);
+    $sql_signup = new signUp($username, $password, $email);
     $sql_signup->signup();
 }
 ?>
@@ -58,19 +58,14 @@ if (isset($_POST['signup'])) {
                     <input type="password" name="password" required />
                     <label class="label-group">password</label>
                 </div>
-                <!-- Confirm Password -->
-                <div class="input-user">
-                    <img src="../assets/key.svg" alt="icon-mail" />
-                    <input type="password" name="confirm_password" required />
-                    <label class="label-group">confirm password</label>
-                </div>
-                <!-- button -->
-                <button type="submit" class="button-signup" name="signup">
-                    <span class="button-text-signup">
-                        <a href="#" class="url-signup">signUp</a>
+                 <!-- button -->
+                 <button type="submit" class="button-login" name="login">
+                    <!-- <a href="" class="url-login">Login</a> -->
+                    <span class="url-login">
+                        signup
                     </span>
                     <span class="button-icon">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                        <ion-icon name="chevron-forward-outline">Login</ion-icon>
                     </span>
                 </button>
             </form>

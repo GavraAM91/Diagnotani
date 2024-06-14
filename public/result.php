@@ -5,6 +5,9 @@ namespace Core;
 use Core\Question;
 use Core\ShowData;
 use Core\Database;
+use Core\History;
+use Core\SolusiJagung;
+use Core\SolusiPenyakit;
 use Core\DataPenyakitJagung;
 use Core\DataPenyakitGejalaJagung;
 
@@ -40,8 +43,6 @@ echo "</br>";
 
 $id_gejala = array_column($filtered_gejala, 'id_gejala');
 
-var_dump($id_gejala);
-
 if (!empty($id_gejala)) {
     $placeholders = implode(',', array_fill(0, count($id_gejala), '?'));
     $sql_penyakit = "SELECT pg.id_penyakit, p.nama_penyakit
@@ -50,7 +51,7 @@ if (!empty($id_gejala)) {
     WHERE pg.id_gejala IN ($placeholders)";
 
     $sql_penyakit = $db->getConnection()->prepare($sql_penyakit);
-    $types = str_repeat('s', count($id_gejala)); 
+    $types = str_repeat('s', count($id_gejala));
     $sql_penyakit->bind_param($types, ...$id_gejala);
     $sql_penyakit->execute();
     $result = $sql_penyakit->get_result();
@@ -66,10 +67,17 @@ if (!empty($id_gejala)) {
         $penyakit_counts[$nama_penyakit]++;
     }
 
+    //inisialisasi SolusiJagung.php
+    var_dump($id_penyakit);
+    // $solusiJagung = new SolusiJagung($id_penyakit);
+    // $solusiJagung->SolusiPenyakitJagung();
+    // echo $solusiJagung->getSolusi();       
 
     // echo "<hr>";
-    echo "</br>";  
+    echo "</br>";
     echo $nama_penyakit;
+    echo "</br>";
+    echo $solusi;
     echo "</br>";
 
     //for testing
@@ -82,23 +90,22 @@ if (!empty($id_gejala)) {
 $final_cf_percentage = $final_cf * 100;
 echo $final_cf_percentage . '%';
 
-$sql_history = "INSERT INTO `tb_history`(`id_penyakit`, `id_user`, `value`) 
-                VALUES (?,?,?)";
-$sql_history = $db->getConnection()->prepare($sql_history);
-$sql_history->bind_param("ssss", $id_penyakit, $id_user, $final_cf_percentage);
-$sql_history->execute();
-
+//send data to history class
+$data_history = new History($id_penyakit, $id_user, $final_cf_percentage);
+$data_history->addHistory();
 
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
 </body>

@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
             </header>
 
             <!-- form input -->
-            <form class="form-signin" method="POST">
+            <form class="form-signin" method="POST" action="">
                 <!-- user -->
                 <div class="input-user">
                     <img src="../assets/person.svg" alt="icon-user" />
@@ -59,19 +59,31 @@ if (isset($_POST['login'])) {
 
                 <!-- button -->
                 <button type="submit" class="button-login" name="login">
+                    <!-- <a href="" class="url-login">Login</a> -->
+                    <span class="url-login">
+                        Login
+                    </span>
+                    <span class="button-icon">
+                        <ion-icon name="chevron-forward-outline">Login</ion-icon>
+                    </span>
+                </button>
+
+                <!-- button -->
+                <!-- <button type="submit" class="button-login" name="login">
                     <span class="button-text">
                         <a href="#" name="login" class="url-login">Login</a>
                     </span>
                     <span class="button-icon">
                         <ion-icon name="chevron-forward-outline"></ion-icon>
                     </span>
-                </button>
+                </button> -->
             </form>
+
             <div class="border"></div>
             <!--footer-->
             <footer class="footer-login">
                 <p>Don't you have account</p>
-                <a href="signup.html">Create your account</a>
+                <a href="signup.php">Create your account</a>
             </footer>
         </div>
 

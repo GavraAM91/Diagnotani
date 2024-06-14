@@ -263,7 +263,6 @@ img {
     font-weight: bolder;
 }
 
-
 .opsi {
     display: flex;
     width: 35%;
@@ -301,6 +300,12 @@ span {
     transform: translateX(-320px) translateY(110px);
 }
 
+.next-button:hover {
+    background-color: #127d32;
+    color: #fff;
+    transition: all 5ms ease;
+}
+
 /* styling option and radio button */
 
 #pilihan {
@@ -313,7 +318,7 @@ span {
     width: 20px;
     height: 20px;
     position: absolute;
-    background-color: #fcbc80;
+    background-color: #ff830e;
     border-radius: 50%;
     transform: translateX(-35px) translateY(5px);
     cursor: pointer;

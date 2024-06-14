@@ -16,6 +16,18 @@ $datagejala = new DataGejalaJagung();
 // Mendapatkan seluruh total pertanyaan / gejala dari database
 $totalGejala = $datagejala->countGejala();
 
+// if(!isset($_SESSION['username'])) { 
+//     header("Location: index.php");
+// }
+
+if(!isset($_SESSION['username'])) {
+    header("Location: account/login.php");
+}
+
+$username = $_SESSION['username'];
+
+var_dump($username);
+
 // Periksa apakah pertanyaan saat ini sudah ada dalam sesi
 if (!isset($_SESSION['gejala'])) {
     $datagejala->dataGejala();
